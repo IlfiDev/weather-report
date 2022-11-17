@@ -9,6 +9,10 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface RetrofitServices {
-    @GET()
+    @GET
     fun getCurrentWeatherList(@Url url: String): Call<WeatherItem>
+
+    @GET
+    fun getFiveDaysWeather(@Url url: String): Call<ForecastItem>
+
 }

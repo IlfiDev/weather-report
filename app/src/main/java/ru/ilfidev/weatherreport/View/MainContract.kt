@@ -1,15 +1,17 @@
 package ru.ilfidev.weatherreport.View
 
+import ru.ilfidev.weatherreport.Model.ForecastItem
 import ru.ilfidev.weatherreport.Model.WeatherItem
 
 interface MainContract {
     interface View : BaseView<Presenter>{
-        fun ShowWeather(weatherList : List<WeatherItem>)
+        fun ShowWeather(weatherList : ForecastItem)
     }
 
     interface Presenter : BasePresenter {
         fun upadateWeather()
-        fun getData(weatherItem: WeatherItem)
+        fun getCurrentWeather(weatherItem: WeatherItem)
+        fun getForecast(weatherItem: ForecastItem)
     }
     interface  Model{
         fun setPresenter(presenter: MainContract.Presenter)

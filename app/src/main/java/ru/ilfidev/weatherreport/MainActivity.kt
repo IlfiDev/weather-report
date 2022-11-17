@@ -21,6 +21,7 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.HttpException
 import ru.ilfidev.weatherreport.Model.CityWeatherModel
+import ru.ilfidev.weatherreport.Model.ForecastItem
 import ru.ilfidev.weatherreport.Model.Retrofit.RetrofitClient
 import ru.ilfidev.weatherreport.Model.RetrofitServices
 import ru.ilfidev.weatherreport.Model.WeatherItem
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.upadateWeather()
     }
 
-    override fun ShowWeather(weatherList : List<WeatherItem>) {
+    override fun ShowWeather(weatherList : ForecastItem) {
         val recyclerView = findViewById<RecyclerView>(R.id.time_weather_recycle_view)
         val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = horizontalLayoutManager
