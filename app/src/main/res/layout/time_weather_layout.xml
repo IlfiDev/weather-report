@@ -24,12 +24,12 @@
 
     <ImageView
         android:id="@+id/time_weather_image_id"
-        android:layout_width="16dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="32dp"
-        android:src="@drawable/ic_cloud"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/condition_cloudy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_weather_time_id" />
@@ -38,7 +38,7 @@
         android:id="@+id/time_weather_temperature_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22.69dp"
+        android:layout_marginTop="15dp"
         android:text="32"
         android:textColor="@color/white"
         android:textSize="14sp"

@@ -16,5 +16,6 @@ data class WeatherItem(
     @SerializedName ("timezone") val timezone: Int = 0,
     @SerializedName ("visibility") val visibility: Int = 0,
     @SerializedName ("weather") val weather: List<WeatherX> = emptyList(),
-    @SerializedName ("wind") val wind: Wind = Wind(-1, -1.1, -1.1)
+    @SerializedName ("wind") val wind: Wind = Wind(-1, -1.1, -1.1),
+    @SerializedName ("dt_txt") val dt_txt: String = ""
 )

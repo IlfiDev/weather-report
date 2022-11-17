@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Log.WARN
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -34,18 +35,14 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    var id = 0
-    private lateinit var tempUrl: String
-    private lateinit var textView: TextView
-    private lateinit var plusBtn: Button
-    private lateinit var minusBtn: Button
-    private lateinit var linearLayout: LinearLayout
-    private var city = "Tver"
+    private lateinit var addCityButton: Button
+    private lateinit var currentWeatherImage: ImageView
     private lateinit var presenter: MainContract.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getSupportActionBar()?.hide()
         setPresenter(MainActivityPresenter(this, DependencyInjectionImpl()))
         presenter.upadateWeather()
     }
@@ -61,6 +58,24 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun setPresenter(presenter: MainContract.Presenter) {
         this.presenter = presenter
     }
+
+    fun UpdateCurrintWeather(weatherItem: WeatherItem){
+        currentWeatherImage.findViewById<ImageView>(R.id.current_weather_image)
+        currentWeatherImage.setImageResource(weatherStateImageMap[weatherItem.weather[0].description]!!)
+        
+    }
+
+    val weatherStateImageMap = mapOf(
+        Pair("clear sky", R.drawable.property_1_sun),
+        Pair("few clouds", R.drawable.property_1_partial_cloudy),
+        Pair("scattered clouds", R.drawable.property_1_partial_cloudy),
+        Pair("broken clouds", R.drawable.property_1_mostly_cloudy),
+        Pair("shower rain", R.drawable.property_1_heavy_rain),
+        Pair("rain", R.drawable.property_1_sun_and_rain),
+        Pair("thunderstorm", R.drawable.property_1_thunderstorm),
+        Pair("snow", R.drawable.property_1_snow),
+        Pair("mist", R.drawable.property_1_mostly_cloudy))
+
 }
 
 
