@@ -10,7 +10,7 @@ import ru.ilfidev.weatherreport.View.MainContract
 
 
 class CityWeatherModel(): MainContract, MainContract.Model {
-    val APIKey = BuildConfig.API_KEY
+    val APIKey = "da04bab5b9ea80aac099ed157b930425"
     private lateinit var presenter: MainContract.Presenter
     val apiServices = RetrofitClient.getClient().create(RetrofitServices::class.java)
     fun getCurrentWeather(city: String){
