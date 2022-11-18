@@ -8,11 +8,6 @@
     android:background="@drawable/my_gradient_drawable"
     tools:context="ru.ilfidev.weatherreport.MainActivity">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <ImageView
         android:id="@+id/current_weather_image"
         android:layout_width="254dp"
@@ -26,9 +21,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/main_temperature_id"
         android:layout_width="94dp"
-        android:layout_height="79dp"
+        android:layout_height="90dp"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
         android:text="25"
@@ -50,22 +45,34 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/main_temperature_id" />
+
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="149dp"
-        android:text="Monday, 17 May"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:id="@+id/today_text_id"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        android:text="      24H"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_weather_recycle_view"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/five_days_text_id"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:text="Next 5 days"
+        android:textColor="#9BA0AB"
+        android:textSize="14sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/time_weather_recycle_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/today_text_id" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/time_weather_recycle_view"
         android:paddingLeft="10dp"
@@ -73,7 +80,16 @@
         android:layout_height="130dp"
         android:layout_marginTop="550dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewPager2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/switch_to_city_activity_id"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 

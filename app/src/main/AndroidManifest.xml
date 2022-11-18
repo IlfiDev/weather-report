@@ -16,7 +16,14 @@
         android:theme="@style/Theme.WeatherReport"
         tools:targetApi="31">
         <activity
-            android:name=".WeekActivity"
+            android:name=".View.ChooseCityActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".View.WeekActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

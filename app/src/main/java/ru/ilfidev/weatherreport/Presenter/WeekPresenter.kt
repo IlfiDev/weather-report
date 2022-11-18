@@ -4,7 +4,7 @@ import ru.ilfidev.weatherreport.Model.ForecastItem
 import ru.ilfidev.weatherreport.Model.WeatherItem
 import ru.ilfidev.weatherreport.View.MainContract
 
-class MainActivityPresenter(view: MainContract.View, dependencyInjector: DependencyInjector) : MainContract.Presenter {
+class WeekPresenter (view: MainContract.View, dependencyInjector: DependencyInjector): MainContract.Presenter {
     private val weatherModel = dependencyInjector.weatherModel()
     private var view: MainContract.View? = view
     private lateinit var weatherList: ForecastItem
@@ -15,13 +15,11 @@ class MainActivityPresenter(view: MainContract.View, dependencyInjector: Depende
     }
 
     override fun updateCurrentWeather() {
-        weatherModel.setPresenter(this)
-        weatherModel.getCurrentWeather(city)
+        TODO("Not yet implemented")
     }
 
     override fun getCurrentWeather(weatherItem: WeatherItem) {
-        view?.setCity(city)
-        view?.showCurrentWeather(weatherItem)
+        TODO("Not yet implemented")
     }
 
     override fun getForecast(weatherItem: ForecastItem) {

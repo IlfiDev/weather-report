@@ -8,13 +8,7 @@ import ru.ilfidev.weatherreport.Model.RetrofitServices
 
 object RetrofitClient {
     var retrofit : Retrofit? = null
-    val api: RetrofitServices by lazy{
-        Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RetrofitServices::class.java)
-    }
+
     fun getClient(): Retrofit{
         if (retrofit == null){
             retrofit = Retrofit.Builder()

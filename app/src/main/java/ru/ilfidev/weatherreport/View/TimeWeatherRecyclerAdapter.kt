@@ -20,15 +20,17 @@ class TimeWeatherRecyclerAdapter(context: Context, items: ForecastItem) : Recycl
     val mInflater = LayoutInflater.from(context)
     val weathearItems = items.list.slice(0..7)
     val weatherStateImageMap = mapOf(
-        Pair("clear sky", R.drawable.condition_sunny),
-        Pair("few clouds", R.drawable.condition_cloudy_at_day),
-        Pair("scattered clouds", R.drawable.condition_cloudy_at_day),
-        Pair("broken clouds", R.drawable.condition_cloudy),
-        Pair("shower rain", R.drawable.condition_rain),
-        Pair("rain", R.drawable.condition_rain_opportunity),
-        Pair("thunderstorm", R.drawable.condition_thunderstorm),
-        Pair("snow", R.drawable.condition_snow),
-        Pair("mist", R.drawable.condition_cloudy))
+        Pair("Clear", R.drawable.condition_sunny),
+        Pair("Clouds", R.drawable.condition_cloudy),
+        Pair("Rain", R.drawable.condition_rain),
+        Pair("Drizzle", R.drawable.condition_rain_opportunity),
+        Pair("Smoke", R.drawable.condition_cloudy),
+        Pair("Haze", R.drawable.condition_cloudy),
+        Pair("Dust", R.drawable.condition_cloudy),
+        Pair("Fog", R.drawable.condition_cloudy),
+        Pair("Thunderstorm", R.drawable.condition_thunderstorm),
+        Pair("Snow", R.drawable.condition_snow),
+        Pair("Mist", R.drawable.condition_cloudy))
 
     public class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val temp = itemView.findViewById<TextView>(R.id.time_weather_temperature_id)
@@ -53,8 +55,10 @@ class TimeWeatherRecyclerAdapter(context: Context, items: ForecastItem) : Recycl
         }else{
             resultTime = (formattedTimeInt - 12).toString() + " pm"
         }
-        Log.w("Time", resultTime)
-        holder.image.setImageResource(weatherStateImageMap[weathearItems[position].weather[0].description]!!)
+        Log.w("WEATHER STATE", weathearItems[position].weather[0].description)
+        holder.image.setImageResource(weatherStateImageMap[
+                weathearItems[position]
+                    .weather[0].main]!!)
         holder.temp.setText(temperature.roundToInt().toBigDecimal().toPlainString() + "°")
         holder.time.setText(resultTime)
     }

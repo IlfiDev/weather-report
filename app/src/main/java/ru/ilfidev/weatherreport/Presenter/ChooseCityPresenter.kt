@@ -4,14 +4,16 @@ import ru.ilfidev.weatherreport.Model.ForecastItem
 import ru.ilfidev.weatherreport.Model.WeatherItem
 import ru.ilfidev.weatherreport.View.MainContract
 
-class MainActivityPresenter(view: MainContract.View, dependencyInjector: DependencyInjector) : MainContract.Presenter {
-    private val weatherModel = dependencyInjector.weatherModel()
-    private var view: MainContract.View? = view
-    private lateinit var weatherList: ForecastItem
+class ChooseCityPresenter(view: MainContract.View, dependencyInjector: DependencyInjector): MainContract.Presenter {
+    val view = view
+    val weatherModel = dependencyInjector.weatherModel()
+    private lateinit var citiesList: List<String>
     private lateinit var city: String
+    fun checkCity(city: String){
+
+    }
     override fun updateWeatherForecast() {
-        weatherModel.setPresenter(this)
-        weatherModel.getWeatherForTheWeek(city)
+        TODO("Not yet implemented")
     }
 
     override fun updateCurrentWeather() {
@@ -20,13 +22,12 @@ class MainActivityPresenter(view: MainContract.View, dependencyInjector: Depende
     }
 
     override fun getCurrentWeather(weatherItem: WeatherItem) {
-        view?.setCity(city)
+        PresentersManager.setCity(city)
         view?.showCurrentWeather(weatherItem)
     }
 
     override fun getForecast(weatherItem: ForecastItem) {
-        weatherList = weatherItem
-        view?.showWeather(weatherItem)
+        TODO("Not yet implemented")
     }
 
     override fun setCity(city: String) {
@@ -36,4 +37,5 @@ class MainActivityPresenter(view: MainContract.View, dependencyInjector: Depende
     override fun onDestroy() {
         TODO("Not yet implemented")
     }
+
 }

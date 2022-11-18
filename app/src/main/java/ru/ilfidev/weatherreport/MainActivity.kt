@@ -1,53 +1,69 @@
 package ru.ilfidev.weatherreport
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.WARN
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.google.gson.Gson
-import org.json.JSONObject
-import retrofit2.HttpException
-import ru.ilfidev.weatherreport.Model.CityWeatherModel
 import ru.ilfidev.weatherreport.Model.ForecastItem
-import ru.ilfidev.weatherreport.Model.Retrofit.RetrofitClient
-import ru.ilfidev.weatherreport.Model.RetrofitServices
 import ru.ilfidev.weatherreport.Model.WeatherItem
 import ru.ilfidev.weatherreport.Presenter.DependencyInjectionImpl
 import ru.ilfidev.weatherreport.Presenter.MainActivityPresenter
-import ru.ilfidev.weatherreport.View.MainContract
-import ru.ilfidev.weatherreport.View.TestFragment
-import ru.ilfidev.weatherreport.View.TimeWeatherRecyclerAdapter
-import java.io.IOException
+import ru.ilfidev.weatherreport.Presenter.PresentersManager
+import ru.ilfidev.weatherreport.View.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private lateinit var addCityButton: Button
     private lateinit var currentWeatherImage: ImageView
     private lateinit var presenter: MainContract.Presenter
+    private lateinit var fiveDaysTextButton: Button
+    private lateinit var chooseCityButton: Button
+    private lateinit var cityName:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         getSupportActionBar()?.hide()
+
+        fiveDaysTextButton = findViewById(R.id.five_days_text_id)
+        fiveDaysTextButton.setText("Next 5 days")
+        fiveDaysTextButton.setOnClickListener(object:  View.OnClickListener {
+            override fun onClick(view:View){
+                val intent = Intent(view.context, WeekActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        chooseCityButton = findViewById(R.id.switch_to_city_activity_id)
+        chooseCityButton.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(view:View){
+                val intent = Intent(view.context, ChooseCityActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+
         setPresenter(MainActivityPresenter(this, DependencyInjectionImpl()))
-        presenter.upadateWeather()
+        val intent = Intent(this, ChooseCityActivity::class.java)
+        startActivity(intent)
+//        presenter.updateCurrentWeather()
+//        presenter.updateWeatherForecast()
+        var a = getSystemService(Context.LOCATION_SERVICE)
     }
 
-    override fun ShowWeather(weatherList : ForecastItem) {
+    override fun onResume() {
+        super.onResume()
+        Log.d("AAAAAAAA", PresentersManager.getCity())
+        presenter.setCity(PresentersManager.getCity())
+        presenter.updateWeatherForecast()
+        presenter.updateCurrentWeather()
+    }
+    override fun showWeather(weatherList : ForecastItem) {
         val recyclerView = findViewById<RecyclerView>(R.id.time_weather_recycle_view)
         val horizontalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = horizontalLayoutManager
@@ -59,22 +75,33 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         this.presenter = presenter
     }
 
-    fun UpdateCurrintWeather(weatherItem: WeatherItem){
-        currentWeatherImage.findViewById<ImageView>(R.id.current_weather_image)
-        currentWeatherImage.setImageResource(weatherStateImageMap[weatherItem.weather[0].description]!!)
-        
+    override fun showCurrentWeather(weatherItem: WeatherItem){
+        currentWeatherImage = findViewById(R.id.current_weather_image)
+        currentWeatherImage.setImageResource(weatherStateImageMap[weatherItem.weather[0].main]!!)
+        var temperature = findViewById<TextView>(R.id.main_temperature_id)
+        temperature.setText((weatherItem.main.temp - 273).toBigDecimal().toString())
+
+    }
+
+    override fun setCity(city: String) {
+        cityName = findViewById(R.id.textView)
+        cityName.setText(city)
     }
 
     val weatherStateImageMap = mapOf(
-        Pair("clear sky", R.drawable.property_1_sun),
-        Pair("few clouds", R.drawable.property_1_partial_cloudy),
-        Pair("scattered clouds", R.drawable.property_1_partial_cloudy),
-        Pair("broken clouds", R.drawable.property_1_mostly_cloudy),
-        Pair("shower rain", R.drawable.property_1_heavy_rain),
-        Pair("rain", R.drawable.property_1_sun_and_rain),
-        Pair("thunderstorm", R.drawable.property_1_thunderstorm),
-        Pair("snow", R.drawable.property_1_snow),
-        Pair("mist", R.drawable.property_1_mostly_cloudy))
+        Pair("Clear", R.drawable.property_1_sun),
+        Pair("Clouds", R.drawable.property_1_mostly_cloudy),
+        Pair("Rain", R.drawable.property_1_heavy_rain),
+        Pair("Drizzle", R.drawable.property_1_sun_and_rain),
+        Pair("Smoke", R.drawable.property_1_mostly_cloudy),
+        Pair("Haze", R.drawable.property_1_mostly_cloudy),
+        Pair("Dust", R.drawable.property_1_mostly_cloudy),
+        Pair("Fog", R.drawable.property_1_mostly_cloudy),
+        Pair("Thunderstorm", R.drawable.property_1_thunderstorm),
+        Pair("Snow", R.drawable.property_1_snow),
+        Pair("Mist", R.drawable.property_1_mostly_cloudy))
+
+
 
 }
 
